@@ -1,0 +1,14 @@
+# Railway deployment configuration
+# This file tells Railway how to deploy your Java app
+
+# Build command (optional - Railway auto-detects Maven)
+# build:
+#   command: mvn clean package -DskipTests
+
+# Start command (optional - Railway auto-detects JAR)
+# start:
+#   command: java -jar target/resume-builder-1.0.0.jar
+
+# Environment variables
+# PORT is automatically set by Railway
+# Add your custom env vars here if needed

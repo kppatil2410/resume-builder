@@ -1,0 +1,33 @@
+# Build artifacts
+target/
+*.jar
+*.war
+*.ear
+
+# IDE files
+.idea/
+.vscode/
+*.iml
+*.iws
+*.ipr
+
+# OS files
+.DS_Store
+Thumbs.db
+
+# Git
+.git/
+.gitignore
+
+# Maven
+.m2/
+
+# Logs
+*.log
+
+# Documentation
+README.md
+
+# Docker
+Dockerfile*
+docker-compose*

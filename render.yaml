@@ -1,0 +1,16 @@
+# Render deployment configuration
+# This file tells Render how to deploy your Java app
+
+# Build command
+buildCommand: mvn clean package -DskipTests
+
+# Start command
+startCommand: java -jar target/resume-builder-1.0.0.jar
+
+# Runtime
+runtime: java
+javaVersion: 17
+
+# Environment variables (add your secrets here)
+# OPENAI_API_KEY: your_openai_api_key
+# DATABASE_URL: your_database_url
