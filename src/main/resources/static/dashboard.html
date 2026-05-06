@@ -1,0 +1,144 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Dashboard — ResumeAI</title>
+    <link rel="stylesheet" href="/css/style.css">
+</head>
+<body class="app-page">
+    <nav class="app-nav">
+        <div class="nav-brand">
+            <span class="brand-icon">📄</span>
+            <span class="brand-name">ResumeAI</span>
+        </div>
+        <div class="nav-links">
+            <a href="/dashboard.html" class="nav-link active">Dashboard</a>
+            <a href="/resume-builder.html" class="nav-link">Builder</a>
+            <a href="/history.html" class="nav-link">History</a>
+            <button onclick="logout()" class="btn btn-outline btn-sm">Logout</button>
+        </div>
+    </nav>
+
+    <main class="app-main">
+        <div class="page-header">
+            <h1>Welcome back, <span id="userName">User</span> 👋</h1>
+            <p>Here's an overview of your resume activity.</p>
+        </div>
+
+        <div class="stats-grid">
+            <div class="stat-card">
+                <div class="stat-icon">📄</div>
+                <div class="stat-info">
+                    <div class="stat-value" id="resumeCount">0</div>
+                    <div class="stat-label">Resumes Created</div>
+                </div>
+            </div>
+            <div class="stat-card">
+                <div class="stat-icon">⭐</div>
+                <div class="stat-info">
+                    <div class="stat-value" id="avgScore">—</div>
+                    <div class="stat-label">Average Score</div>
+                </div>
+            </div>
+            <div class="stat-card">
+                <div class="stat-icon">🏆</div>
+                <div class="stat-info">
+                    <div class="stat-value" id="bestScore">—</div>
+                    <div class="stat-label">Best Score</div>
+                </div>
+            </div>
+        </div>
+
+        <div class="dashboard-grid">
+            <!-- Quick Actions -->
+            <div class="card">
+                <div class="card-header">
+                    <h2>Quick Actions</h2>
+                </div>
+                <div class="quick-actions">
+                    <a href="/resume-builder.html" class="action-btn">
+                        <span class="action-icon">✏️</span>
+                        <span>Build Resume</span>
+                    </a>
+                    <a href="/history.html" class="action-btn">
+                        <span class="action-icon">📋</span>
+                        <span>View History</span>
+                    </a>
+                    <button onclick="openAtsModal()" class="action-btn">
+                        <span class="action-icon">🎯</span>
+                        <span>ATS Check</span>
+                    </button>
+                    <button onclick="openScoreModal()" class="action-btn">
+                        <span class="action-icon">📊</span>
+                        <span>Score Resume</span>
+                    </button>
+                </div>
+            </div>
+
+            <!-- Recent Resumes -->
+            <div class="card">
+                <div class="card-header">
+                    <h2>Recent Resumes</h2>
+                    <a href="/history.html" class="card-link">View all →</a>
+                </div>
+                <div id="recentResumes" class="resume-list">
+                    <div class="empty-state">
+                        <p>No resumes yet.</p>
+                        <a href="/resume-builder.html" class="btn btn-primary btn-sm">Create your first resume</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </main>
+
+    <!-- ATS Check Modal -->
+    <div id="atsModal" class="modal hidden">
+        <div class="modal-overlay" onclick="closeModal('atsModal')"></div>
+        <div class="modal-content">
+            <div class="modal-header">
+                <h3>🎯 ATS Keyword Checker</h3>
+                <button onclick="closeModal('atsModal')" class="modal-close">✕</button>
+            </div>
+            <div class="modal-body">
+                <div class="form-group">
+                    <label>Your Resume Content</label>
+                    <textarea id="atsResume" rows="6" placeholder="Paste your resume text here..."></textarea>
+                </div>
+                <div class="form-group">
+                    <label>Job Description</label>
+                    <textarea id="atsJob" rows="6" placeholder="Paste the job description here..."></textarea>
+                </div>
+                <button onclick="runAtsCheck()" class="btn btn-primary btn-full" id="atsBtn">
+                    Run ATS Check
+                </button>
+                <div id="atsResult" class="hidden"></div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Score Modal -->
+    <div id="scoreModal" class="modal hidden">
+        <div class="modal-overlay" onclick="closeModal('scoreModal')"></div>
+        <div class="modal-content">
+            <div class="modal-header">
+                <h3>📊 Resume Score</h3>
+                <button onclick="closeModal('scoreModal')" class="modal-close">✕</button>
+            </div>
+            <div class="modal-body">
+                <div class="form-group">
+                    <label>Resume Content</label>
+                    <textarea id="scoreContent" rows="8" placeholder="Paste your resume text here..."></textarea>
+                </div>
+                <button onclick="runScoreCheck()" class="btn btn-primary btn-full" id="scoreBtn">
+                    Calculate Score
+                </button>
+                <div id="scoreResult" class="hidden"></div>
+            </div>
+        </div>
+    </div>
+
+    <script src="/js/auth.js"></script>
+    <script src="/js/dashboard.js"></script>
+</body>
+</html>

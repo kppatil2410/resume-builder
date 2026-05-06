@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>History — ResumeAI</title>
+    <link rel="stylesheet" href="/css/style.css">
+</head>
+<body class="app-page">
+    <nav class="app-nav">
+        <div class="nav-brand">
+            <span class="brand-icon">📄</span>
+            <span class="brand-name">ResumeAI</span>
+        </div>
+        <div class="nav-links">
+            <a href="/dashboard.html" class="nav-link">Dashboard</a>
+            <a href="/resume-builder.html" class="nav-link">Builder</a>
+            <a href="/history.html" class="nav-link active">History</a>
+            <button onclick="logout()" class="btn btn-outline btn-sm">Logout</button>
+        </div>
+    </nav>
+
+    <main class="app-main">
+        <div class="page-header">
+            <h1>Resume History</h1>
+            <p>All your saved resumes in one place.</p>
+            <a href="/resume-builder.html" class="btn btn-primary">+ New Resume</a>
+        </div>
+
+        <div id="historyGrid" class="history-grid">
+            <div class="loading">Loading your resumes...</div>
+        </div>
+    </main>
+
+    <!-- Resume Detail Modal -->
+    <div id="resumeModal" class="modal hidden">
+        <div class="modal-overlay" onclick="closeModal('resumeModal')"></div>
+        <div class="modal-content modal-large">
+            <div class="modal-header">
+                <h3 id="modalTitle">Resume</h3>
+                <div class="modal-header-actions">
+                    <button onclick="improveFromModal()" class="btn btn-outline btn-sm" id="modalImproveBtn">🤖 AI Improve</button>
+                    <button onclick="downloadFromModal()" class="btn btn-primary btn-sm" id="modalDownloadBtn">📥 PDF</button>
+                    <button onclick="closeModal('resumeModal')" class="modal-close">✕</button>
+                </div>
+            </div>
+            <div class="modal-body modal-two-col">
+                <div class="modal-col">
+                    <h4>Original</h4>
+                    <div id="modalOriginal" class="resume-text-view"></div>
+                </div>
+                <div class="modal-col" id="improvedCol" style="display:none">
+                    <h4>AI Improved</h4>
+                    <div id="modalImproved" class="resume-text-view improved"></div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script src="/js/auth.js"></script>
+    <script src="/js/history.js"></script>
+</body>
+</html>

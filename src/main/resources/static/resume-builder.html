@@ -1,0 +1,186 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Resume Builder — ResumeAI</title>
+    <link rel="stylesheet" href="/css/style.css">
+</head>
+<body class="app-page">
+    <nav class="app-nav">
+        <div class="nav-brand">
+            <span class="brand-icon">📄</span>
+            <span class="brand-name">ResumeAI</span>
+        </div>
+        <div class="nav-links">
+            <a href="/dashboard.html" class="nav-link">Dashboard</a>
+            <a href="/resume-builder.html" class="nav-link active">Builder</a>
+            <a href="/history.html" class="nav-link">History</a>
+            <button onclick="logout()" class="btn btn-outline btn-sm">Logout</button>
+        </div>
+    </nav>
+
+    <main class="app-main builder-layout">
+        <!-- Left: Form -->
+        <div class="builder-form">
+            <div class="page-header">
+                <h1>Resume Builder</h1>
+                <p>Fill in your details to generate a professional resume.</p>
+            </div>
+
+            <div id="alert" class="alert hidden"></div>
+
+            <form id="resumeForm">
+                <!-- Basic Info -->
+                <div class="card form-section">
+                    <div class="card-header"><h3>📋 Basic Information</h3></div>
+                    <div class="form-grid">
+                        <div class="form-group">
+                            <label>Resume Title *</label>
+                            <input type="text" id="title" placeholder="e.g. Software Engineer Resume" required>
+                        </div>
+                        <div class="form-group">
+                            <label>Full Name *</label>
+                            <input type="text" id="fullName" placeholder="John Doe" required>
+                        </div>
+                        <div class="form-group">
+                            <label>Email *</label>
+                            <input type="email" id="email" placeholder="john@example.com" required>
+                        </div>
+                        <div class="form-group">
+                            <label>Phone</label>
+                            <input type="text" id="phone" placeholder="+1 (555) 000-0000">
+                        </div>
+                        <div class="form-group">
+                            <label>Location</label>
+                            <input type="text" id="location" placeholder="New York, NY">
+                        </div>
+                        <div class="form-group form-full">
+                            <label>Professional Summary</label>
+                            <textarea id="summary" rows="3" placeholder="Brief overview of your professional background and goals..."></textarea>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Experience -->
+                <div class="card form-section">
+                    <div class="card-header">
+                        <h3>💼 Work Experience</h3>
+                        <button type="button" onclick="addExperience()" class="btn btn-outline btn-sm">+ Add</button>
+                    </div>
+                    <div id="experienceList"></div>
+                </div>
+
+                <!-- Education -->
+                <div class="card form-section">
+                    <div class="card-header">
+                        <h3>🎓 Education</h3>
+                        <button type="button" onclick="addEducation()" class="btn btn-outline btn-sm">+ Add</button>
+                    </div>
+                    <div id="educationList"></div>
+                </div>
+
+                <!-- Skills -->
+                <div class="card form-section">
+                    <div class="card-header"><h3>⚡ Skills</h3></div>
+                    <div class="form-group">
+                        <label>Skills (press Enter or comma to add)</label>
+                        <div class="skills-input-wrapper">
+                            <div id="skillTags" class="skill-tags"></div>
+                            <input type="text" id="skillInput" placeholder="e.g. Java, Python, React...">
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Projects -->
+                <div class="card form-section">
+                    <div class="card-header">
+                        <h3>🚀 Projects</h3>
+                        <button type="button" onclick="addProject()" class="btn btn-outline btn-sm">+ Add</button>
+                    </div>
+                    <div id="projectList"></div>
+                </div>
+
+                <!-- Template -->
+                <div class="card form-section">
+                    <div class="card-header"><h3>🎨 Template</h3></div>
+                    <div class="template-grid">
+                        <label class="template-option">
+                            <input type="radio" name="template" value="modern" checked>
+                            <div class="template-preview modern-preview">
+                                <div class="tp-header"></div>
+                                <div class="tp-lines">
+                                    <div class="tp-line"></div>
+                                    <div class="tp-line short"></div>
+                                    <div class="tp-line"></div>
+                                </div>
+                            </div>
+                            <span>Modern</span>
+                        </label>
+                        <label class="template-option">
+                            <input type="radio" name="template" value="classic">
+                            <div class="template-preview classic-preview">
+                                <div class="tp-header classic"></div>
+                                <div class="tp-lines">
+                                    <div class="tp-line"></div>
+                                    <div class="tp-line short"></div>
+                                    <div class="tp-line"></div>
+                                </div>
+                            </div>
+                            <span>Classic</span>
+                        </label>
+                        <label class="template-option">
+                            <input type="radio" name="template" value="minimal">
+                            <div class="template-preview minimal-preview">
+                                <div class="tp-header minimal"></div>
+                                <div class="tp-lines">
+                                    <div class="tp-line"></div>
+                                    <div class="tp-line short"></div>
+                                    <div class="tp-line"></div>
+                                </div>
+                            </div>
+                            <span>Minimal</span>
+                        </label>
+                    </div>
+                </div>
+
+                <div class="form-actions">
+                    <button type="submit" class="btn btn-primary btn-lg" id="generateBtn">
+                        Generate Resume
+                    </button>
+                </div>
+            </form>
+        </div>
+
+        <!-- Right: Preview -->
+        <div class="builder-preview">
+            <div class="preview-header">
+                <h3>Preview</h3>
+                <div class="preview-actions" id="previewActions" style="display:none">
+                    <button onclick="improveResume()" class="btn btn-outline btn-sm" id="improveBtn">🤖 AI Improve</button>
+                    <button onclick="downloadPdf()" class="btn btn-primary btn-sm" id="downloadBtn">📥 Download PDF</button>
+                </div>
+            </div>
+            <div id="resumePreview" class="resume-preview-area">
+                <div class="preview-placeholder">
+                    <div class="placeholder-icon">📄</div>
+                    <p>Your resume preview will appear here after you fill in the form and click Generate.</p>
+                </div>
+            </div>
+
+            <!-- Score Panel -->
+            <div id="scorePanel" class="score-panel hidden">
+                <div class="score-header">
+                    <span>Resume Score</span>
+                    <div class="score-badge" id="scoreBadge">—</div>
+                </div>
+                <div id="scoreBreakdown" class="score-breakdown"></div>
+                <p id="scoreFeedback" class="score-feedback"></p>
+            </div>
+        </div>
+    </main>
+
+    <script src="/js/auth.js"></script>
+    <script src="/js/builder.js"></script>
+</body>
+</html>
